@@ -1,16 +1,35 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
-    // Get all users
+    // GET all users
+    getUsers(req, res) {
+        User.find()
+            .then((users) => res.json(users))
+            .catch((err) => res.status(500).json(err));
+    },
 
     // GET a single user by its _id and populated thought and friend data
+    getSingleUser(req, res) {
+        User.findOne({ _id: req.params.postId })
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with that ID' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
 
     // POST a new user
-        // // example data
+        // Example
         // {
-            // "username": "lernantino",
-            // "email": "lernantino@gmail.com"
+            // "username": "ann",
+            // "email": "ann@mail.com"
         // }
+    createPost(req, res) {
+        User.create(req.body)
+            .then((user) => res.json(user))
+            .catch((err) => res.status(500).json(err));
+    },
 
     // PUT to update a user by its _id
 
