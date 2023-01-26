@@ -11,18 +11,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        // Must match a valid email address (look into Mongoose's matching validation)
+        // Regex to match a valid email address (source: https://www.w3resource.com/javascript/form/email-validation.php)
+        match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     },
     thoughts: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Thought',
+            ref: 'thought',
         }
     ],
     friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'user',
         }
     ]
 },

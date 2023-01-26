@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 
 const reactionSchema = new mongoose.Schema({
     reactionId: {
-        // Use Mongoose's ObjectId data type
-        // Default value is set to a new ObjectId
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
     },
     reactionBody: {
         type: String,
         required: true,
-        // 280 character maximum
+        maxLength: 280
     },
     username: {
         type: String,
         required: true
     },
     createdAt: {
-        // Date
-        // Set default value to the current timestamp
+        type: Date,
+        default: Date.now
         // Use a getter method to format the timestamp on query
     }
 });
@@ -25,11 +25,12 @@ const thoughtSchema = new mongoose.Schema({
     thoughtText: {
         type: String,
         required: true,
-        // Must be between 1 and 280 characters
+        minLength: 1,
+        maxLength: 280
     },
     createdAt: {
-        // Date
-        // Set default value to the current timestamp
+        type: Date,
+        default: Date.now
         // Use a getter method to format the timestamp on query
     },
     username: {
