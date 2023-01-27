@@ -80,6 +80,35 @@ module.exports = {
     },
 
     // POST to create a reaction stored in a single thought's reactions array field
+        // Example
+        /* {
+            "reactionBody": "That's a good thought!",
+            "username": "bob"
+        } */
+    addReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body } }
+        )
+        .then((thought) =>
+            !thought
+                ? res.status(404).json({ message: 'No thought with this id!' })
+                : res.json(thought)
+        )
+        .catch((err) => res.status(500).json(err));
+    },
 
     // DELETE to pull and remove a reaction by the reaction's reactionId value
+    deleteReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { _id: req.params.reactionId } } }
+        )
+        .then((thought) =>
+            !thought 
+                ? res.status(404).json({ message: 'No thought with this id!' })
+                : res.json(thought)
+        )
+        .catch((err) => res.status(500).json(err));
+    },
 };
