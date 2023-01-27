@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/helpers');
 
 const reactionSchema = new Schema({
     reactionId: {
@@ -17,9 +18,14 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // Use a getter method to format the timestamp on query
-        
+        // Use a getter method to format the timestamp on query (source: https://github.com/Morganbb104/HW_18-NoSQL-Social-Network-API/blob/main/models/Thought.js)
+        get: (Date) => dateFormat(Date)
     }
+},
+{
+    toJSON: {
+        getters: true
+    },
 });
 
 const thoughtSchema = new Schema({
@@ -31,8 +37,9 @@ const thoughtSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
-        // Use a getter method to format the timestamp on query
+        default: Date.now,
+        // Use a getter method to format the timestamp on query (source: https://github.com/Morganbb104/HW_18-NoSQL-Social-Network-API/blob/main/models/Thought.js)
+        get: (Date) => dateFormat(Date)
     },
     username: {
         type: String,
@@ -43,6 +50,7 @@ const thoughtSchema = new Schema({
 {
     toJSON: {
         virtuals: true,
+        getters: true
     },
 });
 
