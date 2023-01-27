@@ -24,7 +24,7 @@ module.exports = {
         /* {
             "thoughtText": "I was thinking...",
             "username": "Ann",
-            "userId": "Ann.userId here"
+            "userId": "63d403562fad109b956fae0b"
         } */
     createThought(req, res) {
         Thought.create(req.body)
