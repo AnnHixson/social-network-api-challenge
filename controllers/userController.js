@@ -39,7 +39,7 @@ module.exports = {
     updateUser(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { username: req.body.username}
+            { username: req.body.username }
         )
         .then((user) =>
             !user
